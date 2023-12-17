@@ -53,13 +53,13 @@ const UploadPage = () => {
                 
             );
     
-            if (response.ok) {
-                alert('Upload successful');
-                // Optionally, handle further logic upon successful upload
-            } else {
-                alert('Upload failed');
-                // Handle upload failure
-            }
+            // if (response.) {
+            //     alert('Upload successful');
+            //     // Optionally, handle further logic upon successful upload
+            // } else {
+            //     alert('Upload failed');
+            //     // Handle upload failure
+            // }
         } catch (error) {
             alert('Error during file upload: ' + (error.message || 'Unknown error'));
             // Handle network errors or other exceptions
