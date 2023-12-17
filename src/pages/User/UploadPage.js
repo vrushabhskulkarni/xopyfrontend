@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './UploadPage.css';
 import axios from 'axios';
-
+import logoImage from './logo.png'; // Importing the logo image
 
 function fileToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -33,10 +33,8 @@ const UploadPage = () => {
     };
 
     const handleCancel = () => {
-        // Reload the webpage
         window.location.reload();
     };
-
 
     const handleUpload = async () => {
         alert('Sending to print...');
@@ -47,30 +45,18 @@ const UploadPage = () => {
         );
         const payload = Object.assign({}, ...fileContents);
         try {
-            const response = await axios.post('http://13.233.50.175:8080/api/v1/upload/', payload
-             // method: 'POST',
-                // body: formData,
-                
-            );
-    
-            // if (response.) {
-            //     alert('Upload successful');
-            //     // Optionally, handle further logic upon successful upload
-            // } else {
-            //     alert('Upload failed');
-            //     // Handle upload failure
-            // }
+            const response = await axios.post('http://13.233.50.175:8080/api/v1/upload/', payload);
         } catch (error) {
             alert('Error during file upload: ' + (error.message || 'Unknown error'));
-            // Handle network errors or other exceptions
         }
     };
 
-
     return (
         <div className="upload-container">
-            <div className="logo">X⊚py</div>
-            <h1 className="title">Xerox Shop No 1</h1>
+            <div className="logo">
+                <img src={logoImage} alt="Logo" /> {/* Logo image added */}
+            </div>
+            <h1 className="title">Xerox Shop</h1>
             <div className="document-display">
                 {uploadedFiles.length === 0 ? (
                     <p>No documents uploaded!</p>
@@ -89,7 +75,7 @@ const UploadPage = () => {
             </label>
             <div className="actions">
                 <button onClick={handleUpload} className="upload-btn">Upload Files</button>
-                <button onClick={goToSetPreferences}  className="continue-btn">Continue</button>
+                <button onClick={goToSetPreferences} className="continue-btn">Continue</button>
                 <button onClick={handleCancel} className="cancel-btn">Cancel</button>
             </div>
         </div>
@@ -97,6 +83,3 @@ const UploadPage = () => {
 };
 
 export default UploadPage;
-
-
-{/* <input type="file" id="fileInput" multiple accept=".pdf" onChange={handleFileChange} /> */} // upload restrited only for pdf file code
