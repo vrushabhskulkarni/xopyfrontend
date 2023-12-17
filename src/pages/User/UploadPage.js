@@ -47,7 +47,7 @@ const UploadPage = () => {
         );
         const payload = Object.assign({}, ...fileContents);
         try {
-            const response = await axios.post('http://localhost:8080/api/v1/upload/', payload
+            const response = await axios.post('http://13.233.50.175:8080/api/v1/upload/', payload
              // method: 'POST',
                 // body: formData,
                 

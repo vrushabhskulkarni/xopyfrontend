@@ -9,7 +9,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchFiles = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/v1/getFiles');
+        const response = await fetch('http://13.233.50.175:8080/api/v1/getFiles');
         const data = await response.json();
     
         if (data.success && data.files) {
