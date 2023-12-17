@@ -13,7 +13,7 @@ const Dashboard = () => {
         const data = await response.json();
     
         if (data.success && data.files) {
-          const fifteenMinutesAgo = new Date(Date.now() - 2 * 60 * 1000); // 5 minutes ago
+          const fifteenMinutesAgo = new Date(Date.now() - 2 * 60 * 1000); // 2 minutes ago
     
           const recentFiles = data.files.filter(file => {
             const fileModifiedTime = new Date(file.lastModified);
@@ -77,7 +77,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>Xerox Shop No 1</h1>
+        <h1>Xerox Shop</h1>
         {/* Profile image should be replaced with actual image path */}
         {/* <img src="path-to-profile-image.jpg" alt="Profile" className="profile-image" /> */}
       </header>
