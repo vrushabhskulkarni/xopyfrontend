@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import "./operatorpanel.css";
 import printJS from 'print-js';
 
-
 const Dashboard = () => {
   const [rows, setRows] = useState([]);
+
+  // URL of the image to be downloaded
+  const imageURL = "https://downloadqrcode.s3.ap-south-1.amazonaws.com/qrcode.png"; // Replace with the actual image URL
 
   useEffect(() => {
     const fetchFiles = async () => {
@@ -13,11 +15,11 @@ const Dashboard = () => {
         const data = await response.json();
     
         if (data.success && data.files) {
-          const fifteenMinutesAgo = new Date(Date.now() - 2 * 60 * 1000); // 2 minutes ago
+          const recentTimeThreshold = new Date(Date.now() - 2 * 60 * 1000); // 2 minutes ago
     
           const recentFiles = data.files.filter(file => {
             const fileModifiedTime = new Date(file.lastModified);
-            return fileModifiedTime > fifteenMinutesAgo;
+            return fileModifiedTime > recentTimeThreshold;
           });
     
           const formattedRows = recentFiles.map((file, index) => ({
@@ -39,26 +41,21 @@ const Dashboard = () => {
       }
     };
     
-
     fetchFiles();
   }, []);
 
   const handlePrint = (fileUrl) => {
-    console.log(fileUrl);
-  
-    // Determine the file type from the URL
+    // Existing print logic...
     const fileType = fileUrl.split('.').pop().toLowerCase();
-  
     let printConfig = {
       printable: fileUrl,
-      showModal: true, // shows a modal with a loading indicator
+      showModal: true,
       modalMessage: "Document Loading...",
       onError: (err) => console.log(err),
       fallbackPrintable: () => console.log("FallbackPrintable"),      
       onPrintDialogClose: () => console.log('The print dialog was closed')
     };
   
-    // Set the type in printJS configuration based on the file type
     if (['pdf'].includes(fileType)) {
       printConfig.type = 'pdf';
     } else if (['jpg', 'jpeg', 'png', 'gif'].includes(fileType)) {
@@ -70,31 +67,23 @@ const Dashboard = () => {
   
     printJS(printConfig);
   };
-  
-  
-  
+
+  const handleDownload = () => {
+    // Open the image in a new tab
+    window.open(imageURL, '_blank');
+  };
 
   return (
     <div className="dashboard">
       <header className="dashboard-header">
         <h1>Xerox Shop</h1>
-        {/* Profile image should be replaced with actual image path */}
+        {/* Download button next to h1 tag */}
+        <button onClick={handleDownload}>Download QR</button>
+        {/* Profile image (commented out) */}
         {/* <img src="path-to-profile-image.jpg" alt="Profile" className="profile-image" /> */}
       </header>
 
-      {/* <section className="summary-cards">
-        <div className="card">
-          <span className="card-title">General Nos</span>
-          <span className="card-value">05</span>
-          <span className="card-description">Total no of copies generated</span>
-        </div>
-        <div className="card">
-          <span className="card-title">General Nos</span>
-          <span className="card-value">05</span>
-          <span className="card-description">No of copies generated today</span>
-        </div>
-      </section> */}
-
+      {/* Rendering of the table */}
       <table>
         <thead>
           <tr>
