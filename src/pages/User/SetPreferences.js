@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; // useNavigate instead of useHistory
 import './SetPreferences.css';
+import logoImage from './logo.png'; 
 
 const SetPreferencesPage = () => {
   const location = useLocation();
@@ -30,8 +31,10 @@ const SetPreferencesPage = () => {
   return (
     <div className="document-uploader">
       <header className="header">
-        <img src="logo.png" alt="Xerox Logo" className="logo" />
-        <h1>Xerox Shop No 1</h1>
+      <div className="logo">
+                <img src={logoImage} alt="Logo" /> {/* Logo image added */}
+            </div>
+        <h1>Xerox Shop</h1>
       </header>
       <main className="main-content">
         <h2>Uploaded Documents</h2>
